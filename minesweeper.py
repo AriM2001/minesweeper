@@ -204,11 +204,14 @@ class MinesweeperAI():
         and self.moves_made, but should not modify any of those values.
         """
         # Return a random cell from self.safes that has not already been chosen
+        #safes = set((i, j) for i in range(self.height) for j in range(self.width))
+        #choices = self.safes - self.moves_made
+        #moves_made = set((4, 0))
+        '''
+        something is wrong here
+        '''
         choices = self.safes - self.moves_made
-        if choices:
-            return random.sample(choices, 1)[0]
-        else:
-            return None
+        return random.choice(list(choices))if choices else None
         #raise NotImplementedError
 
     def make_random_move(self):
@@ -228,3 +231,5 @@ class MinesweeperAI():
 
 #MinesweeperAI = MinesweeperAI(8, 8)
 #print(MinesweeperAI.make_random_move())
+#MinesweeperAI = MinesweeperAI(8, 8)
+#print(MinesweeperAI.make_safe_move())
