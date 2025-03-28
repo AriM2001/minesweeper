@@ -105,27 +105,37 @@ class Sentence():
         """
         Returns the set of all cells in self.cells known to be mines.
         """
-        raise NotImplementedError
+        return self.cells if len(self.cells) == self.count else set()
+        #raise NotImplementedError
 
     def known_safes(self):
         """
         Returns the set of all cells in self.cells known to be safe.
         """
-        raise NotImplementedError
+        if self.count == 0:
+            return self.cells
+        else:
+            return set()
+        #maybe subtract self.known_mines from self.cells *********
+        #raise NotImplementedError
 
     def mark_mine(self, cell):
         """
         Updates internal knowledge representation given the fact that
         a cell is known to be a mine.
         """
-        raise NotImplementedError
+        self.cells.remove(cell)
+        if cell in self.cells:
+            self.count -= 1
+        #raise NotImplementedError
 
     def mark_safe(self, cell):
         """
         Updates internal knowledge representation given the fact that
         a cell is known to be safe.
         """
-        raise NotImplementedError
+        self.cells.remove(cell)
+        #raise NotImplementedError
 
 
 class MinesweeperAI():
@@ -202,4 +212,10 @@ class MinesweeperAI():
             1) have not already been chosen, and
             2) are not known to be mines
         """
-        raise NotImplementedError
+        choices = set((i, j) for i in range(self.height) for j in range(self.width))
+        for pair in self.mines:
+            choices.discard(pair)
+        for pair in self.moves_made:
+            choices.discard(pair)
+        return random.sample(choices, 1) if choices else None
+        #raise NotImplementedError
