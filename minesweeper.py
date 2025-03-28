@@ -203,7 +203,13 @@ class MinesweeperAI():
         This function may use the knowledge in self.mines, self.safes
         and self.moves_made, but should not modify any of those values.
         """
-        raise NotImplementedError
+        # Return a random cell from self.safes that has not already been chosen
+        choices = self.safes - self.moves_made
+        if choices:
+            return random.sample(choices, 1)[0]
+        else:
+            return None
+        #raise NotImplementedError
 
     def make_random_move(self):
         """
@@ -217,5 +223,8 @@ class MinesweeperAI():
             choices.discard(pair)
         for pair in self.moves_made:
             choices.discard(pair)
-        return random.sample(choices, 1) if choices else None
+        return random.choice(list(choices))if choices else None
         #raise NotImplementedError
+
+#MinesweeperAI = MinesweeperAI(8, 8)
+#print(MinesweeperAI.make_random_move())
